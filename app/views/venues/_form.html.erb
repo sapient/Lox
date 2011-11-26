@@ -1,0 +1,82 @@
+<%= form_for(@venue) do |f| %>
+  <% if @venue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
+
+      <ul>
+      <% @venue.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :street_address %><br />
+    <%= f.text_field :street_address %>
+  </div>
+  <div class="ui-widget">
+    <div class="field">
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<style>
+  .ui-autocomplete-loading { background: white url('<%= asset_path("ui-anim_basic_16x16.gif") %>') right center no-repeat; }
+  #venue_location { width: 25em; }
+</style> 
+
+<script>
+$(function() {
+  $( "#venue_location" ).autocomplete({
+    source: function( request, response ) {
+      $.ajax({
+        url: "http://ws.geonames.org/searchJSON",
+        dataType: "jsonp",
+        data: {
+          featureClass: "P",
+          style: "full",
+          maxRows: 12,
+          name_startsWith: request.term
+        },
+        success: function( data ) {
+          response( $.map( data.geonames, function( item ) {
+            return {
+              label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+              value: item.name
+            }
+          }));
+        }
+      });
+    },
+    minLength: 2,
+    focus: function( event, ui ) {
+      $( "#venue_location" ).val( ui.item.label );
+      return false;
+    },
+    select: function( event, ui ) {
+      $("#venue_location").val(ui.item.label);
+      return false;
+    },
+    open: function() {
+      $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+    },
+    close: function() {
+      $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+    }
+  });
+});
+</script>
