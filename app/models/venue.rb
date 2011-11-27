@@ -21,12 +21,12 @@ class Venue < ActiveRecord::Base
 private
 
   def full_location
-    logger.debug "Geocoding #{self.street_address}, #{self.location}"
-    "#{self.street_address}, #{self.location}"
+    logger.debug "Geocoding #{self.street_address}, #{@location}"
+    "#{self.street_address}, #{@location}"
   end
 
   def add_to_location
-    loc = location.split(", ")
+    loc = @location.split(", ")
     logger.debug loc
     
     cit = City.find_or_create_by_name(loc[0])
