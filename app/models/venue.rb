@@ -10,6 +10,14 @@ class Venue < ActiveRecord::Base
 
   attr_accessor :location
 
+  def location
+    loc = []
+    loc << city.name if city.present?
+    loc << region.name if region.present?
+    loc << country.name if country.present?
+    loc.join(", ")
+  end
+
 private
 
   def full_location

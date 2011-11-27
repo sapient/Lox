@@ -17,8 +17,9 @@
     <td><%= venue.name %></td>
     <td><%= venue.notes %></td>
     <td><%= venue.street_address %></td>
-    <td><%= venue.latitude %></td>
-    <td><%= venue.longitude %></td>
+    <td><%= venue.city.name if venue.city.present? %></td>
+    <td><%= venue.region.name if venue.region.present? %></td>
+    <td><%= venue.country.name if venue.country.present? %></td>
     <td><%= link_to 'Show', venue %></td>
     <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
     <td><%= link_to 'Destroy', venue, confirm: 'Are you sure?', method: :delete %></td>
