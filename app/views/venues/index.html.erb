@@ -5,8 +5,8 @@
     <th>Name</th>
     <th>Notes</th>
     <th>Street address</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
+    <th></th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -20,6 +20,7 @@
     <td><%= venue.city.name if venue.city.present? %></td>
     <td><%= venue.region.name if venue.region.present? %></td>
     <td><%= venue.country.name if venue.country.present? %></td>
+    <td><%= venue.latitude.to_s + ", " + venue.longitude.to_s %></td>
     <td><%= link_to 'Show', venue %></td>
     <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
     <td><%= link_to 'Destroy', venue, confirm: 'Are you sure?', method: :delete %></td>
