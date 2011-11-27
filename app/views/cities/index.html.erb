@@ -3,8 +3,7 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
+    <th>Coords</th>
     <th>Region</th>
     <th>Country</th>
     <th></th>
@@ -15,10 +14,9 @@
 <% @cities.each do |city| %>
   <tr>
     <td><%= city.name %></td>
-    <td><%= city.latitude %></td>
-    <td><%= city.longitude %></td>
-    <td><%= city.region_id %></td>
-    <td><%= city.country_id %></td>
+    <td><%= [city.latitude, city.longitude].join(", ") if city.latitude.present? %></td>
+    <td><%= city.region.name if city.region.present? %></td>
+    <td><%= city.country.name if city.country.present? %></td>
     <td><%= link_to 'Show', city %></td>
     <td><%= link_to 'Edit', edit_city_path(city) %></td>
     <td><%= link_to 'Destroy', city, confirm: 'Are you sure?', method: :delete %></td>

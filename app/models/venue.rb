@@ -29,9 +29,9 @@ private
     loc = @location.split(", ")
     logger.debug loc
     
-    cit = City.find_or_create_by_name(loc[0])
     reg = Region.find_or_create_by_name(loc[1])
     cnt = Country.find_or_create_by_name(loc[2])
+    cit = City.find_or_create_by_name_and_region_id_and_country_id(loc[0], reg.id, cnt.id)
 
     reg.cities << cit
     cnt.regions << reg
